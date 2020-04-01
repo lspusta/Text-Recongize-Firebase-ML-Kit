@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "648322796259",
+    "firebase_url": "https://text-recognize-430e5.firebaseio.com",
+    "project_id": "text-recognize-430e5",
+    "storage_bucket": "text-recognize-430e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648322796259:android:2df2b53f2406fd0eead3d6",
+        "android_client_info": {
+          "package_name": "itkido.me.mlkitfirebasetextrecongize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648322796259-g69q5kf9a4cgols07k363n6q7lk719as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "itkido.me.mlkitfirebasetextrecongize",
+            "certificate_hash": "438e98d43a698c0f160ae4fea696b5b5cb64008e"
+          }
+        },
+        {
+          "client_id": "648322796259-ocbgqjgs26ticg4a3kb0ivfdp7k4sjf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4i830Atsch7ajmq6FxReJ6wF0OKvW7oI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648322796259-ocbgqjgs26ticg4a3kb0ivfdp7k4sjf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
