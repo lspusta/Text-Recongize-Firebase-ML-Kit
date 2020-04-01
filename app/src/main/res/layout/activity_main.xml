@@ -16,6 +16,7 @@
         android:id="@+id/graphic_overlay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:maxHeight="350dp"
         android:layout_above="@+id/recyclerv_view"
         />
 
@@ -49,6 +50,15 @@
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"/>
+
+
+    <Button
+        android:id="@+id/buttonLivePreview"
+        android:text="Live Preview"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"/>
 
     <Button
         android:id="@+id/button_cloud_text"

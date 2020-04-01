@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mTextResponse = new ArrayList<>();
     RecyclerView recyclerv_view;
     private ImageView mImageView;
+    private Button buttonLivePreview;
     private Button mTextButton;
     private Button mCloudButton;
     private Bitmap mSelectedImage;
@@ -116,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
+        buttonLivePreview = findViewById(R.id.buttonLivePreview);
+
         recyclerv_view = findViewById(R.id.recyclerv_view);
 
         mImageView = findViewById(R.id.image_view);
@@ -125,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         mGraphicOverlay = findViewById(R.id.graphic_overlay);
+
+        buttonLivePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, activity_livepreviewtest.class));
+            }
+        });
+
         mTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,44 +236,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
 
-
-
-//                final Bitmap bmp = (Bitmap) data.getExtras().get("data");
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//
-//                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
-//
-//                // convert byte array to Bitmap
-//
-//
-//
-//                final Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
-//                        byteArray.length);
-//
-//
-//                if (bitmap != null) {
-//                    // Get the dimensions of the View
-//                    Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
-//
-//                    int targetWidth = targetedSize.first;
-//                    int maxHeight = targetedSize.second;
-//
-//                    // Determine how much to scale down the image
-//                    float scaleFactor =
-//                            Math.max(
-//                                    (float) bitmap.getWidth() / (float) targetWidth,
-//                                    (float) bitmap.getHeight() / (float) maxHeight);
-//
-//                    Bitmap resizedBitmap =
-//                            Bitmap.createScaledBitmap(
-//                                    bitmap,
-//                                    (int) (bitmap.getWidth() / scaleFactor),
-//                                    (int) (bitmap.getHeight() / scaleFactor),
-//                                    true);
-//
-//                    mImageView.setImageBitmap(resizedBitmap);
-//                    mSelectedImage = resizedBitmap;
 
 
 
