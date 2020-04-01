@@ -14,10 +14,10 @@
         android:contentDescription="Find Text" />
     <itkido.me.mlkitfirebasetextrecongize.GraphicOverlay
         android:id="@+id/graphic_overlay"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:maxHeight="350dp"
-        android:layout_above="@+id/recyclerv_view"
+        android:layout_above="@+id/button_text"
         />
 
 
@@ -27,45 +27,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerv_view"
-        android:layout_above="@+id/spinner"
+        android:layout_above="@+id/button_text"
         android:layout_marginTop="10dp"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
 
 
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_text"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        />
     <Button
         android:id="@+id/button_text"
         android:text="Find Text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_above="@+id/buttonLivePreview"
+        />
 
 
     <Button
         android:id="@+id/buttonLivePreview"
         android:text="Live Preview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"/>
+
+        android:layout_above="@+id/button_cloud_text"
+        />
 
     <Button
         android:id="@+id/button_cloud_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:text="Find Text(Cloud)"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        />
 
 </RelativeLayout>

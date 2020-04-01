@@ -14,6 +14,10 @@
 
 package itkido.me.mlkitfirebasetextrecongize;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,6 +25,9 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Graphic instance for rendering TextBlock position, size, and ID within an associated graphic
@@ -30,11 +37,13 @@ public class TextGraphic extends GraphicOverlay.Graphic {
 
     private static final String TAG = "TextGraphic";
     private static final int TEXT_COLOR = Color.BLACK;
+    private static final int TEXT_BACKGROUND = Color.RED;
     private static final float TEXT_SIZE = 54.0f;
     private static final float STROKE_WIDTH = 4.0f;
 
     private final Paint rectPaint;
     private final Paint textPaint;
+
     private final FirebaseVisionText.Element element;
 
     TextGraphic(GraphicOverlay overlay, FirebaseVisionText.Element element) {
@@ -42,8 +51,10 @@ public class TextGraphic extends GraphicOverlay.Graphic {
 
         this.element = element;
 
+
+
         rectPaint = new Paint();
-        rectPaint.setColor(TEXT_COLOR);
+        rectPaint.setColor(TEXT_BACKGROUND);
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setStrokeWidth(STROKE_WIDTH);
 
@@ -64,11 +75,33 @@ public class TextGraphic extends GraphicOverlay.Graphic {
             throw new IllegalStateException("Attempting to draw a null text.");
         }
 
+        Bitmap background;
+
+        background = getBitmapFromAsset(getApplicationContext(), "Please_walk_on_the_grass.jpg");
+
+//        canvas.setBitmap(background);
+
         // Draws the bounding box around the TextBlock.
         RectF rect = new RectF(element.getBoundingBox());
         canvas.drawRect(rect, rectPaint);
 
         // Renders the text at the bottom of the box.
-        canvas.drawText(element.getText(), rect.left, rect.bottom, textPaint);
+        canvas.drawText(element.getText(), rect.left, rect.top, textPaint);
+    }
+
+
+    public static Bitmap getBitmapFromAsset(Context context, String filePath) {
+        AssetManager assetManager = context.getAssets();
+
+        InputStream is;
+        Bitmap bitmap = null;
+        try {
+            is = assetManager.open(filePath);
+            bitmap = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
     }
 }

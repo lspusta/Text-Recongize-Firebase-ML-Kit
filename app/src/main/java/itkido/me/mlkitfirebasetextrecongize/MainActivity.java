@@ -139,7 +139,29 @@ public class MainActivity extends AppCompatActivity {
         mTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                runTextRecognition();
+                if (hasCamera() == true){
+//                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                            startActivityForResult(intent,
+//                                    CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//
+                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                    StrictMode.setVmPolicy(builder.build());
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                    String imageFileName = timeStamp + ".jpg";
+                    File storageDir = Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_PICTURES);
+                    pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
+                    File file = new File(pictureImagePath);
+                    Uri outputFileUri = Uri.fromFile(file);
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                    startActivityForResult(cameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                }else {
+                    hasCamera();
+                }
+
+                mTextResponse.clear();
+
             }
         });
 
@@ -147,81 +169,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 runCloudTextRecognition();
-            }
-        });
-
-        Spinner dropdown = findViewById(R.id.spinner);
-        String[] items = new String[]{"Test Image 1 (Text)", "Test Image 2 (Text)", "Take Picture (Text)"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout
-                .simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mGraphicOverlay.clear();
-                switch (position) {
-                    case 0:
-                        mSelectedImage = getBitmapFromAsset(getApplicationContext(), "Please_walk_on_the_grass.jpg");
-                        mTextResponse.clear();
-                        break;
-                    case 1:
-                        // Whatever you want to happen when the thrid item gets selected
-                        mSelectedImage = getBitmapFromAsset(getApplicationContext(), "nl2.jpg");
-                        mTextResponse.clear();
-                        break;
-                    case 2:
-                        if (hasCamera() == true){
-//                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                            startActivityForResult(intent,
-//                                    CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-//
-                            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                            StrictMode.setVmPolicy(builder.build());
-                            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                            String imageFileName = timeStamp + ".jpg";
-                            File storageDir = Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_PICTURES);
-                            pictureImagePath = storageDir.getAbsolutePath() + "/" + imageFileName;
-                            File file = new File(pictureImagePath);
-                            Uri outputFileUri = Uri.fromFile(file);
-                            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-                            startActivityForResult(cameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-                        }else {
-                            hasCamera();
-                        }
-
-                        mTextResponse.clear();
-                        break;
-                }
-                if (mSelectedImage != null) {
-                    // Get the dimensions of the View
-                    Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
-
-                    int targetWidth = targetedSize.first;
-                    int maxHeight = targetedSize.second;
-
-                    // Determine how much to scale down the image
-                    float scaleFactor =
-                            Math.max(
-                                    (float) mSelectedImage.getWidth() / (float) targetWidth,
-                                    (float) mSelectedImage.getHeight() / (float) maxHeight);
-
-                    Bitmap resizedBitmap =
-                            Bitmap.createScaledBitmap(
-                                    mSelectedImage,
-                                    (int) (mSelectedImage.getWidth() / scaleFactor),
-                                    (int) (mSelectedImage.getHeight() / scaleFactor),
-                                    true);
-
-                    mImageView.setImageBitmap(resizedBitmap);
-                    mSelectedImage = resizedBitmap;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -293,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
                             mImageView.setImageBitmap(resizedBitmap);
                             mSelectedImage = resizedBitmap;
+
+                            runTextRecognition();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -481,22 +430,6 @@ public class MainActivity extends AppCompatActivity {
         targetHeight = maxHeightForPortraitMode;
         return new Pair<>(targetWidth, targetHeight);
     }
-
-    public static Bitmap getBitmapFromAsset(Context context, String filePath) {
-        AssetManager assetManager = context.getAssets();
-
-        InputStream is;
-        Bitmap bitmap = null;
-        try {
-            is = assetManager.open(filePath);
-            bitmap = BitmapFactory.decodeStream(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return bitmap;
-    }
-
 
     private void initDisplayTextResponse(){
         Log.d(TAG, "initRecyclerView: init recyclerview.");
