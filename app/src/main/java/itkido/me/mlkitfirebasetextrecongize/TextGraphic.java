@@ -75,9 +75,6 @@ public class TextGraphic extends GraphicOverlay.Graphic {
             throw new IllegalStateException("Attempting to draw a null text.");
         }
 
-        Bitmap background;
-
-        background = getBitmapFromAsset(getApplicationContext(), "Please_walk_on_the_grass.jpg");
 
 //        canvas.setBitmap(background);
 
@@ -89,19 +86,4 @@ public class TextGraphic extends GraphicOverlay.Graphic {
         canvas.drawText(element.getText(), rect.left, rect.top, textPaint);
     }
 
-
-    public static Bitmap getBitmapFromAsset(Context context, String filePath) {
-        AssetManager assetManager = context.getAssets();
-
-        InputStream is;
-        Bitmap bitmap = null;
-        try {
-            is = assetManager.open(filePath);
-            bitmap = BitmapFactory.decodeStream(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return bitmap;
-    }
 }

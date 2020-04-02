@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:maxHeight="350dp"
         android:layout_above="@+id/button_text"
+
         />
 
 
